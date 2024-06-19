@@ -95,6 +95,9 @@ CREATE TABLE partidos (
     nombre_equipo_uno VARCHAR(100) NOT NULL,
     nombre_equipo_dos VARCHAR(100) NOT NULL,
 
+    director_tecnico_equipo_uno INT NOT NULL,
+    director_tecnico_equipo_dos INT NOT NULL,
+
     fecha DATE NOT NULL,
 
     nombre_estadio VARCHAR(100) NOT NULL,
@@ -110,7 +113,10 @@ CREATE TABLE partidos (
 
     FOREIGN KEY (nombre_equipo_uno) REFERENCES equipos(nombre),
     FOREIGN KEY (nombre_equipo_dos) REFERENCES equipos(nombre),
-	
+
+    FOREIGN KEY (director_tecnico_equipo_uno) REFERENCES directores_tecnicos(id),
+	FOREIGN KEY (director_tecnico_equipo_dos) REFERENCES directores_tecnicos(id),
+
     FOREIGN kEY (nombre_estadio) REFERENCES estadios(nombre),
 	
     FOREIGN KEY (arbitro) REFERENCES personal(id),
@@ -154,6 +160,8 @@ CREATE TABLE goles (
 	
     dorsal_jugador_anotador VARCHAR(100) NOT NULL,
     dorsal_jugador_asistente VARCHAR(100),
+
+    tipo_gol VARCHAR(100) NOT NULL CHECK (tipo_gol IN ('partido', 'penal')),
 	
     tiempo_gol TIME NOT NULL
 
@@ -202,8 +210,6 @@ CREATE TABLE penales (
     nombre_equipo VARCHAR(100) NOT NULL,
 	
     dorsal_jugador VARCHAR(100) NOT NULL,
-		
-    tiempo_penal TIME NOT NULL,
 
 	FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
 );
@@ -213,23 +219,23 @@ CREATE TABLE penales (
 CREATE TABLE octavos (
     grupo CHAR(1) NOT NULL,
     nombre_equipo VARCHAR(100) NOT NULL,
-    estado VARCHAR(10) NOT NULL CHECK (estado IN ("PASS", "NOT PASS")),
 
+    PRIMARY KEY (grupo, nombre_equipo),
     FOREIGN KEY (grupo, nombre_equipo) REFERENCES fase_grupos(grupo, nombre_equipo)
 );
 
 CREATE TABLE cuartos (
     grupo CHAR(1) NOT NULL,
     nombre_equipo VARCHAR(100) NOT NULL,
-    estado VARCHAR(10) NOT NULL CHECK (estado IN ("PASS", "NOT PASS")),
 
-    FOREIGN KEY (grupo, nombre_equipo) REFERENCES fase_grupos(grupo, nombre_equipo)
+    PRIMARY KEY (grupo, nombre_equipo),
+    FOREIGN KEY (grupo, nombre_equipo) REFERENCES octavos(grupo, nombre_equipo)
 );
 
 CREATE TABLE semis (
     grupo CHAR(1) NOT NULL,
     nombre_equipo VARCHAR(100) NOT NULL,
-    estado VARCHAR(10) NOT NULL CHECK (estado IN ("PASS", "NOT PASS")),
 
-    FOREIGN KEY (grupo, nombre_equipo) REFERENCES fase_grupos(grupo, nombre_equipo)
+    PRIMARY KEY (grupo, nombre_equipo),
+    FOREIGN KEY (grupo, nombre_equipo) REFERENCES cuartos(grupo, nombre_equipo)
 );
