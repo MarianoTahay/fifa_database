@@ -1247,13 +1247,12 @@ VALUES
 ('Diego Haro', 'var', '1982-04-20', 'Perú'),
 ('Anthony Taylor', 'var', '1978-10-20', 'Inglaterra');
 
--- Fase de Grupos --
 -- Fase de Grupos - Grupo A
 INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
 VALUES
 ('A', 'Argentina', 0, 0, 0),
 ('A', 'Países Bajos', 0, 0, 0),
-('A', 'Nigeria', 0, 0, 0),
+('A', 'Senegal', 0, 0, 0),
 ('A', 'Irán', 0, 0, 0);
 
 -- Fase de Grupos - Grupo B
@@ -1269,7 +1268,7 @@ INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, punto
 VALUES
 ('C', 'Francia', 0, 0, 0),
 ('C', 'Croacia', 0, 0, 0),
-('C', 'Senegal', 0, 0, 0),
+('C', 'México', 0, 0, 0),
 ('C', 'Egipto', 0, 0, 0);
 
 -- Fase de Grupos - Grupo D
@@ -1285,16 +1284,16 @@ INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, punto
 VALUES
 ('E', 'España', 0, 0, 0),
 ('E', 'Dinamarca', 0, 0, 0),
-('E', 'Nueva Zelanda', 0, 0, 0),
-('E', 'Túnez', 0, 0, 0);
+('E', 'Estados Unidos', 0, 0, 0),
+('E', 'Nigeria', 0, 0, 0);
 
 -- Fase de Grupos - Grupo F
 INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
 VALUES
 ('F', 'Italia', 0, 0, 0),
-('F', 'Serbia', 0, 0, 0),
+('F', 'Suiza', 0, 0, 0),
 ('F', 'Japón', 0, 0, 0),
-('F', 'Costa de Marfil', 0, 0, 0);
+('F', 'Colombia', 0, 0, 0);
 
 -- Fase de Grupos - Grupo G
 INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
@@ -1302,13 +1301,23 @@ VALUES
 ('G', 'Inglaterra', 0, 0, 0),
 ('G', 'Suecia', 0, 0, 0),
 ('G', 'Australia', 0, 0, 0),
-('G', 'Honduras', 0, 0, 0);
+('G', 'Chile', 0, 0, 0);
 
 -- Fase de Grupos - Grupo H
 INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
 VALUES
 ('H', 'Uruguay', 0, 0, 0),
 ('H', 'Polonia', 0, 0, 0),
-('H', 'Rusia', 0, 0, 0),
-('H', 'Túnez', 0, 0, 0);
+('H', 'Serbia', 0, 0, 0),
+('H', 'Rusia', 0, 0, 0);
+
+-- PARTIDOS FASE DE GRUPOS - GRUPO A --
+INSERT INTO partidos (fase, nombre_equipo_uno, nombre_equipo_dos, fecha, nombre_estadio, tiempo_inicial, timpo_final, arbitro, asistente_uno, asistente_dos, asistente_tres, var)
+VALUES
+('grupos', 'Argentina', 'Países Bajos', '2022-11-21', 'Estadio Al Bayt', '13:00:00', '15:00:00', 1, 2, 3, 4, 5),
+('grupos', 'Senegal', 'Irán', '2022-11-22', 'Estadio Ahmad Bin Ali', '16:00:00', '18:00:00', 6, 7, 8, 9, 10),
+('grupos', 'Argentina', 'Senegal', '2022-11-25', 'Estadio Al Thumama', '19:00:00', '21:00:00', 11, 12, 13, 14, 15),
+('grupos', 'Países Bajos', 'Irán', '2022-11-26', 'Estadio Education City', '13:00:00', '15:00:00', 16, 17, 18, 19, 20),
+('grupos', 'Argentina', 'Irán', '2022-11-29', 'Estadio Ahmad Bin Ali', '16:00:00', '18:00:00', 21, 22, 23, 24, 25),
+('grupos', 'Países Bajos', 'Senegal', '2022-11-30', 'Estadio Al Bayt', '19:00:00', '21:00:00', 26, 27, 28, 29, 30);
 

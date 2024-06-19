@@ -78,19 +78,19 @@ CREATE TABLE fase_grupos (
     grupo CHAR(1) NOT NULL CHECK (grupo IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')),
     nombre_equipo VARCHAR(100) NOT NULL,
     partidos INT NOT NULL CHECK (partidos >= 0),
-    diferencia_goles INT NOT NULL CHECK (goles >= 0),
+    diferencia_goles INT NOT NULL CHECK (diferencia_goles >= 0),
     puntos INT NOT NULL CHECK (puntos >= 0),
 
-    PRIMARY KEY (grupo, equipo),
+    PRIMARY KEY (grupo, nombre_equipo),
     FOREIGN KEY (nombre_equipo) REFERENCES equipos(nombre)
 );
 
 -- Para poder continuar con la fase de octavos, primero necesitamos que los equipos jueguen, por lo que se pasara a diseñar los PARTIDOS de manera simplificada --
 
 CREATE TABLE partidos (
-    id SERIAL INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
 
-    fase VARCHAR(10) NOT NULL CHECK (fase IN ("grupos", "octavos", "cuartos", "semis", "final")),
+    fase VARCHAR(10) NOT NULL CHECK (fase IN ('grupos', 'octavos', 'cuartos', 'semis', 'final')),
 
     nombre_equipo_uno VARCHAR(100) NOT NULL,
     nombre_equipo_dos VARCHAR(100) NOT NULL,
@@ -102,19 +102,22 @@ CREATE TABLE partidos (
     tiempo_inicial TIME NOT NULL,
     timpo_final TIME NOT NULL,
 
-    arbitro VARCHAR(100) NOT NULL,
-    asistente_uno VARCHAR(100) NOT NULL,
-    asistente_dos VARCHAR(100) NOT NULL,
-    asistente_tres VARCHAR(100) NOT NULL,
-    var VARCHAR(100) NOT NULL,
+    arbitro INT NOT NULL,
+    asistente_uno INT NOT NULL,
+    asistente_dos INT NOT NULL,
+    asistente_tres INT NOT NULL,
+    var INT NOT NULL,
 
     FOREIGN KEY (nombre_equipo_uno) REFERENCES equipos(nombre),
     FOREIGN KEY (nombre_equipo_dos) REFERENCES equipos(nombre),
+	
     FOREIGN kEY (nombre_estadio) REFERENCES estadios(nombre),
-    FOREIGN KEY (asistente_uno) REFERENCES personal(nombre),
-    FOREIGN KEY (asistente_dos) REFERENCES personal(nombre),
-    FOREIGN KEY (asistente_tres) REFERENCES personal(nombre),
-    FOREIGN KEY (var) REFERENCES personal(nombre),
+	
+    FOREIGN KEY (arbitro) REFERENCES personal(id),
+    FOREIGN KEY (asistente_uno) REFERENCES personal(id),
+    FOREIGN KEY (asistente_dos) REFERENCES personal(id),
+    FOREIGN KEY (asistente_tres) REFERENCES personal(id),
+    FOREIGN KEY (var) REFERENCES personal(id)
 );
 
 -- ESTADISTICAS del partido --
@@ -130,9 +133,12 @@ CREATE TABLE alineacion (
 
 CREATE TABLE cambio_jugador (
     id_partido INT NOT NULL,
+	
     nombre_equipo VARCHAR(100) NOT NULL,
+	
     dorsal_jugador_uno VARCHAR(100) NOT NULL,
     dorsal_jugador_dos VARCHAR(100) NOT NULL,
+	
     tiempo_cambio TIME NOT NULL
 
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
@@ -143,9 +149,12 @@ CREATE TABLE cambio_jugador (
 
 CREATE TABLE goles (
     id_partido INT NOT NULL,
+	
     nombre_equipo VARCHAR(100) NOT NULL,
+	
     dorsal_jugador_anotador VARCHAR(100) NOT NULL,
     dorsal_jugador_asistente VARCHAR(100),
+	
     tiempo_gol TIME NOT NULL
 
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
@@ -156,7 +165,9 @@ CREATE TABLE goles (
 
 CREATE TABLE tiros_libres (
     id_partido INT NOT NULL,
+	
     nombre_equipo VARCHAR(100) NOT NULL,
+	
     dorsal_jugador VARCHAR(100) NOT NULL,
 
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
@@ -165,7 +176,9 @@ CREATE TABLE tiros_libres (
 
 CREATE TABLE tarjeta_amarilla (
     id_partido INT NOT NULL,
+	
     nombre_equipo VARCHAR(100) NOT NULL,
+	
     dorsal_jugador VARCHAR(100) NOT NULL,
 
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
@@ -174,7 +187,9 @@ CREATE TABLE tarjeta_amarilla (
 
 CREATE TABLE tarjeta_roja (
     id_partido INT NOT NULL,
+	
     nombre_equipo VARCHAR(100) NOT NULL,
+	
     dorsal_jugador VARCHAR(100) NOT NULL,
 
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
@@ -183,10 +198,14 @@ CREATE TABLE tarjeta_roja (
 
 CREATE TABLE penales (
     id_partido INT NOT NULL,
+	
     nombre_equipo VARCHAR(100) NOT NULL,
-    jugador VARCHAR(100) NOT NULL,
-    gol INT NOT NULL CHECK (gol >= 0),
-    tiempo_penal TIME NOT NULL
+	
+    dorsal_jugador VARCHAR(100) NOT NULL,
+		
+    tiempo_penal TIME NOT NULL,
+
+	FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
 );
 
 ------------------------------------------------------------------------

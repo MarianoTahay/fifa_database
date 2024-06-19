@@ -1,1 +1,1 @@
-SELECT * FROM jugadores WHERE nombre_equipo = 'Argentina';
+SELECT * FROM partidos;
