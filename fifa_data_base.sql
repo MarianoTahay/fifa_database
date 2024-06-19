@@ -1,4 +1,22 @@
 -- Verion 1.0 --
+DROP TABLE directores_tecnicos;
+DROP TABLE alineacion;
+DROP TABLE cambio_jugador;
+DROP TABLE goles;
+DROP TABLE tiros_libres;
+DROP TABLE tarjeta_amarilla;
+DROP TABLE tarjeta_roja;
+DROP TABLE partidos;
+DROP TABLE estadios;
+DROP TABLE partido_final;
+DROP TABLE semis;
+DROP TABLE cuartos;
+DROP TABLE octavos;
+DROP TABLE fase_grupos;
+DROP TABLE penales;
+DROP TABLE jugadores;
+DROP TABLE equipos;
+DROP TABLE personal;
 
 -- Lo primero es registrar los estadios donde se realizara la copa mundial --
 
@@ -131,8 +149,8 @@ CREATE TABLE partidos (
 CREATE TABLE alineacion (
     id_partido INT NOT NULL,
     nombre_equipo VARCHAR(100) NOT NULL,
-    dorsal_jugador VARCHAR(100) NOT NULL,
-    
+    dorsal_jugador INT NOT NULL,
+
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
     FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
 );
@@ -142,11 +160,12 @@ CREATE TABLE cambio_jugador (
 	
     nombre_equipo VARCHAR(100) NOT NULL,
 	
-    dorsal_jugador_uno VARCHAR(100) NOT NULL,
-    dorsal_jugador_dos VARCHAR(100) NOT NULL,
+    dorsal_jugador_uno INT NOT NULL,
+    dorsal_jugador_dos INT NOT NULL,
 	
-    tiempo_cambio TIME NOT NULL
+    tiempo_cambio TIME NOT NULL,
 
+	PRIMARY KEY (id_partido, nombre_equipo, tiempo_cambio),
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
     FOREIGN KEY (nombre_equipo) REFERENCES equipos(nombre),
     FOREIGN KEY (nombre_equipo, dorsal_jugador_uno) REFERENCES jugadores(nombre_equipo, dorsal),
@@ -158,13 +177,14 @@ CREATE TABLE goles (
 	
     nombre_equipo VARCHAR(100) NOT NULL,
 	
-    dorsal_jugador_anotador VARCHAR(100) NOT NULL,
-    dorsal_jugador_asistente VARCHAR(100),
+    dorsal_jugador_anotador INT NOT NULL,
+    dorsal_jugador_asistente INT,
 
     tipo_gol VARCHAR(100) NOT NULL CHECK (tipo_gol IN ('partido', 'penal')),
 	
-    tiempo_gol TIME NOT NULL
+    tiempo_gol TIME NOT NULL,
 
+	PRIMARY KEY(id_partido, tiempo_gol),
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
     FOREIGN KEY (nombre_equipo) REFERENCES equipos(nombre),
     FOREIGN KEY (nombre_equipo, dorsal_jugador_anotador) REFERENCES jugadores(nombre_equipo, dorsal),
@@ -176,8 +196,11 @@ CREATE TABLE tiros_libres (
 	
     nombre_equipo VARCHAR(100) NOT NULL,
 	
-    dorsal_jugador VARCHAR(100) NOT NULL,
+    dorsal_jugador INT NOT NULL,
 
+	tiempo_tiro TIME NOT NULL,
+
+	PRIMARY KEY (id_partido, tiempo_tiro),
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
     FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
 );
@@ -187,8 +210,11 @@ CREATE TABLE tarjeta_amarilla (
 	
     nombre_equipo VARCHAR(100) NOT NULL,
 	
-    dorsal_jugador VARCHAR(100) NOT NULL,
+    dorsal_jugador INT NOT NULL,
 
+	tiempo_amarilla TIME NOT NULL,
+
+	PRIMARY KEY (id_partido, nombre_equipo, dorsal_jugador, tiempo_amarilla),
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
     FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
 );
@@ -198,8 +224,11 @@ CREATE TABLE tarjeta_roja (
 	
     nombre_equipo VARCHAR(100) NOT NULL,
 	
-    dorsal_jugador VARCHAR(100) NOT NULL,
+    dorsal_jugador INT NOT NULL,
 
+	tiempo_roja TIME NOT NULL,
+
+	PRIMARY KEY (id_partido, nombre_equipo, dorsal_jugador, tiempo_roja),
     FOREIGN KEY (id_partido) REFERENCES partidos(id),
     FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
 );
@@ -209,8 +238,11 @@ CREATE TABLE penales (
 	
     nombre_equipo VARCHAR(100) NOT NULL,
 	
-    dorsal_jugador VARCHAR(100) NOT NULL,
+    dorsal_jugador INT NOT NULL,
 
+	tiempo_penal TIME NOT NULL,
+
+	PRIMARY KEY (id_partido, nombre_equipo, dorsal_jugador, tiempo_penal),
 	FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
 );
 
@@ -238,4 +270,12 @@ CREATE TABLE semis (
 
     PRIMARY KEY (grupo, nombre_equipo),
     FOREIGN KEY (grupo, nombre_equipo) REFERENCES cuartos(grupo, nombre_equipo)
+);
+
+CREATE TABLE partido_final (
+	grupo CHAR(1) NOT NULL,
+    nombre_equipo VARCHAR(100) NOT NULL,
+
+    PRIMARY KEY (grupo, nombre_equipo),
+    FOREIGN KEY (grupo, nombre_equipo) REFERENCES semis(grupo, nombre_equipo)
 );
