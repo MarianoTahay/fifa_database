@@ -1,5 +1,4 @@
 -- Verion 1.0 --
-DROP TABLE directores_tecnicos;
 DROP TABLE alineacion;
 DROP TABLE cambio_jugador;
 DROP TABLE goles;
@@ -13,29 +12,31 @@ DROP TABLE semis;
 DROP TABLE cuartos;
 DROP TABLE octavos;
 DROP TABLE fase_grupos;
-DROP TABLE penales;
 DROP TABLE jugadores;
+DROP TABLE directores_tecnicos;
 DROP TABLE equipos;
 DROP TABLE personal;
 
--- Lo primero es registrar los estadios donde se realizara la copa mundial --
+/*
+Considerando que el mundial FIFA Catar 2022 está próximo se le requiere diseñar el sistema de información para 
+registrar todo lo acontecido en el mismo.
+*/
 
+-- 8 estadios --
 CREATE TABLE estadios (
     nombre VARCHAR(100) NOT NULL PRIMARY KEY,
     capacidad INT NOT NULL CHECK (capacidad > 0),
     localidad VARCHAR(100) NOT NULL
 );
 
--- Luego que se deberia de registrar son los EQUIPOS --
 
+-- 32 equipos --
 CREATE TABLE equipos (
     nombre VARCHAR(100) NOT NULL PRIMARY KEY,
     participaciones_previas INTEGER NOT NULL CHECK (participaciones_previas >= 0),
     mundiales_ganados INTEGER NOT NULL CHECK (mundiales_ganados >= 0),
     fecha_afiliacion DATE NOT NULL
 );
-
--- Una vez teniendo los equipos, ellos deciden a que jugadores poner por lo que, se registran los JUGADORES --
 
 /*
 "GK",  # Goalkeeper
@@ -54,6 +55,7 @@ CREATE TABLE equipos (
 "SS"   # Second striker
 */
 
+-- 26 jugadores por equipo --
 CREATE TABLE jugadores (
     nombre_equipo VARCHAR(100) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
@@ -67,8 +69,7 @@ CREATE TABLE jugadores (
     FOREIGN KEY (nombre_equipo) REFERENCES equipos(nombre)
 );
 
--- Tambien se registran los directores tecnicos --
-
+-- Un director principal P y dos secundarios S por equipo --
 CREATE TABLE directores_tecnicos (
     id SERIAL PRIMARY KEY,
     nombre_equipo VARCHAR(100) NOT NULL, 
@@ -80,8 +81,7 @@ CREATE TABLE directores_tecnicos (
     FOREIGN KEY (nombre_equipo) REFERENCES equipos(nombre)
 );
 
--- Terminado lo anterios, se deben de registrar todos los INVOLUCRADOS en los partidos --
-
+-- 36 arbitros, 69 asistentes, 24 para el var --
 CREATE TABLE personal (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -90,7 +90,6 @@ CREATE TABLE personal (
     pais_origen VARCHAR(100) NOT NULL
 );
 
--- Ahora ya habiendo registrado a todos los equpipos e individuos a participar, podemos pasar a la primera fase de la copa, la FASE DE GRUPOS --
 
 CREATE TABLE fase_grupos (
     grupo CHAR(1) NOT NULL CHECK (grupo IN ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')),
@@ -103,7 +102,6 @@ CREATE TABLE fase_grupos (
     FOREIGN KEY (nombre_equipo) REFERENCES equipos(nombre)
 );
 
--- Para poder continuar con la fase de octavos, primero necesitamos que los equipos jueguen, por lo que se pasara a diseñar los PARTIDOS de manera simplificada --
 
 CREATE TABLE partidos (
     id SERIAL PRIMARY KEY,
@@ -233,24 +231,13 @@ CREATE TABLE tarjeta_roja (
     FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
 );
 
-CREATE TABLE penales (
-    id_partido INT NOT NULL,
-	
-    nombre_equipo VARCHAR(100) NOT NULL,
-	
-    dorsal_jugador INT NOT NULL,
-
-	tiempo_penal TIME NOT NULL,
-
-	PRIMARY KEY (id_partido, nombre_equipo, dorsal_jugador, tiempo_penal),
-	FOREIGN KEY (nombre_equipo, dorsal_jugador) REFERENCES jugadores(nombre_equipo, dorsal)
-);
-
 ------------------------------------------------------------------------
 
+-- (W) de win, (L) de lose, (P) de pending
 CREATE TABLE octavos (
     grupo CHAR(1) NOT NULL,
     nombre_equipo VARCHAR(100) NOT NULL,
+	resultado VARCHAR(1) NOT NULL CHECK(resultado IN ('W', 'L', 'P')),
 
     PRIMARY KEY (grupo, nombre_equipo),
     FOREIGN KEY (grupo, nombre_equipo) REFERENCES fase_grupos(grupo, nombre_equipo)
@@ -259,6 +246,7 @@ CREATE TABLE octavos (
 CREATE TABLE cuartos (
     grupo CHAR(1) NOT NULL,
     nombre_equipo VARCHAR(100) NOT NULL,
+	resultado VARCHAR(1) NOT NULL CHECK(resultado IN ('W', 'L', 'P')),
 
     PRIMARY KEY (grupo, nombre_equipo),
     FOREIGN KEY (grupo, nombre_equipo) REFERENCES octavos(grupo, nombre_equipo)
@@ -267,6 +255,7 @@ CREATE TABLE cuartos (
 CREATE TABLE semis (
     grupo CHAR(1) NOT NULL,
     nombre_equipo VARCHAR(100) NOT NULL,
+	resultado VARCHAR(1) NOT NULL CHECK(resultado IN ('W', 'L', 'P')),
 
     PRIMARY KEY (grupo, nombre_equipo),
     FOREIGN KEY (grupo, nombre_equipo) REFERENCES cuartos(grupo, nombre_equipo)
@@ -275,6 +264,7 @@ CREATE TABLE semis (
 CREATE TABLE partido_final (
 	grupo CHAR(1) NOT NULL,
     nombre_equipo VARCHAR(100) NOT NULL,
+	resultado VARCHAR(1) NOT NULL CHECK(resultado IN ('W', 'L', 'P')),
 
     PRIMARY KEY (grupo, nombre_equipo),
     FOREIGN KEY (grupo, nombre_equipo) REFERENCES semis(grupo, nombre_equipo)

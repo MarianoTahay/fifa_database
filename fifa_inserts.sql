@@ -1,4 +1,4 @@
-INSERT INTO estadios (nombre, capacidad, localidad) VALUES 
+INSERT INTO estadios (nombre, capacidad, localidad) VALUES
 ('Estadio Lusail', 80000, 'Lusail'),
 ('Estadio Al Bayt', 60000, 'Al Khor'),
 ('Estadio Internacional Khalifa', 40000, 'Doha'),
@@ -7,7 +7,6 @@ INSERT INTO estadios (nombre, capacidad, localidad) VALUES
 ('Estadio Education City', 40000, 'Al Rayyan'),
 ('Estadio Al Janoub', 40000, 'Al Wakrah'),
 ('Estadio Ras Abu Aboud', 40000, 'Doha');
-
 
 INSERT INTO equipos (nombre, participaciones_previas, mundiales_ganados, fecha_afiliacion) VALUES
 ('Argentina', 17, 2, '1912-01-01'),
@@ -1247,77 +1246,43 @@ VALUES
 ('Diego Haro', 'var', '1982-04-20', 'Perú'),
 ('Anthony Taylor', 'var', '1978-10-20', 'Inglaterra');
 
--- Fase de Grupos - Grupo A
-INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
-VALUES
-('A', 'Argentina', 0, 0, 0),
-('A', 'Países Bajos', 0, 0, 0),
-('A', 'Senegal', 0, 0, 0),
-('A', 'Irán', 0, 0, 0);
+-- Fase de grupos --
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('A', 'Argentina', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('A', 'Brasil', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('A', 'Francia', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('A', 'Alemania', 3, 0, 0);
 
--- Fase de Grupos - Grupo B
-INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
-VALUES
-('B', 'Brasil', 0, 0, 0),
-('B', 'Bélgica', 0, 0, 0),
-('B', 'Ghana', 0, 0, 0),
-('B', 'Arabia Saudita', 0, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('B', 'España', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('B', 'Italia', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('B', 'Inglaterra', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('B', 'Uruguay', 3, 0, 0);
 
--- Fase de Grupos - Grupo C
-INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
-VALUES
-('C', 'Francia', 0, 0, 0),
-('C', 'Croacia', 0, 0, 0),
-('C', 'México', 0, 0, 0),
-('C', 'Egipto', 0, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('C', 'Países Bajos', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('C', 'Bélgica', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('C', 'Croacia', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('C', 'Portugal', 3, 0, 0);
 
--- Fase de Grupos - Grupo D
-INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
-VALUES
-('D', 'Alemania', 0, 0, 0),
-('D', 'Portugal', 0, 0, 0),
-('D', 'Corea del Sur', 0, 0, 0),
-('D', 'Marruecos', 0, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('D', 'Dinamarca', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('D', 'Suiza', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('D', 'Colombia', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('D', 'México', 3, 0, 0);
 
--- Fase de Grupos - Grupo E
-INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
-VALUES
-('E', 'España', 0, 0, 0),
-('E', 'Dinamarca', 0, 0, 0),
-('E', 'Estados Unidos', 0, 0, 0),
-('E', 'Nigeria', 0, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('E', 'Estados Unidos', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('E', 'Chile', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('E', 'Suecia', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('E', 'Polonia', 3, 0, 0);
 
--- Fase de Grupos - Grupo F
-INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
-VALUES
-('F', 'Italia', 0, 0, 0),
-('F', 'Suiza', 0, 0, 0),
-('F', 'Japón', 0, 0, 0),
-('F', 'Colombia', 0, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('F', 'Serbia', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('F', 'Rusia', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('F', 'Corea del Sur', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('F', 'Japón', 3, 0, 0);
 
--- Fase de Grupos - Grupo G
-INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
-VALUES
-('G', 'Inglaterra', 0, 0, 0),
-('G', 'Suecia', 0, 0, 0),
-('G', 'Australia', 0, 0, 0),
-('G', 'Chile', 0, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('G', 'Australia', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('G', 'Senegal', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('G', 'Nigeria', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('G', 'Ghana', 3, 0, 0);
 
--- Fase de Grupos - Grupo H
-INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos)
-VALUES
-('H', 'Uruguay', 0, 0, 0),
-('H', 'Polonia', 0, 0, 0),
-('H', 'Serbia', 0, 0, 0),
-('H', 'Rusia', 0, 0, 0);
-
--- PARTIDOS FASE DE GRUPOS - GRUPO A --
-INSERT INTO partidos (fase, nombre_equipo_uno, nombre_equipo_dos, fecha, nombre_estadio, tiempo_inicial, timpo_final, arbitro, asistente_uno, asistente_dos, asistente_tres, var)
-VALUES
-('grupos', 'Argentina', 'Países Bajos', '2022-11-21', 'Estadio Al Bayt', '13:00:00', '15:00:00', 1, 2, 3, 4, 5),
-('grupos', 'Senegal', 'Irán', '2022-11-22', 'Estadio Ahmad Bin Ali', '16:00:00', '18:00:00', 6, 7, 8, 9, 10),
-('grupos', 'Argentina', 'Senegal', '2022-11-25', 'Estadio Al Thumama', '19:00:00', '21:00:00', 11, 12, 13, 14, 15),
-('grupos', 'Países Bajos', 'Irán', '2022-11-26', 'Estadio Education City', '13:00:00', '15:00:00', 16, 17, 18, 19, 20),
-('grupos', 'Argentina', 'Irán', '2022-11-29', 'Estadio Ahmad Bin Ali', '16:00:00', '18:00:00', 21, 22, 23, 24, 25),
-('grupos', 'Países Bajos', 'Senegal', '2022-11-30', 'Estadio Al Bayt', '19:00:00', '21:00:00', 26, 27, 28, 29, 30);
-
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('H', 'Marruecos', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('H', 'Irán', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('H', 'Arabia Saudita', 3, 0, 0);
+INSERT INTO fase_grupos (grupo, nombre_equipo, partidos, diferencia_goles, puntos) VALUES ('H', 'Egipto', 3, 0, 0);
